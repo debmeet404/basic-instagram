@@ -1,0 +1,8 @@
+1. Add metrics
+2. User metrics to plot graphs
+3. Add Rate Limiting
+4. Check possibility of caching
+5. Check possibility of sharding/partitioning
+6. Use Design Patters
+7. Hash the password before saving in db
+8. Implement signin with oauth2
