@@ -18,4 +18,20 @@ public class PageController {
         // Provide key-value pairs to Thymeleaf while rendering view.
         return "home";
     }
+
+    @RequestMapping("/login")
+    public String login(Model model) {
+        log.info("/login hit");
+
+        model.addAttribute("name", "Debmeet Banerjee");
+        return "login";
+    }
+
+    @RequestMapping("/signup")
+    public String signup(Model model) {
+        log.info("/signup hit");
+
+        model.addAttribute("name", "Debmeet Banerjee");
+        return "signup";
+    }
 }
