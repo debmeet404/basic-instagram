@@ -5,10 +5,13 @@ import in.debmeetbanerjee.pojo.UserRegisterFormData;
 import in.debmeetbanerjee.service.SignUpService;
 import in.debmeetbanerjee.service.UserService;
 import in.debmeetbanerjee.util.MiscUtil;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,17 +51,24 @@ public class PageController {
     @RequestMapping("/signup")
     public String signup(Model model) {
         log.info("/signup hit");
-
-        signUpService.signUp(model);
+        model.addAttribute("userFormData", new UserRegisterFormData());
+//        signUpService.signUp(model);
 
         return "signup";
     }
 
     @PostMapping("/register-user")
-    public String registerUser(@ModelAttribute UserRegisterFormData userFormData) {
+//    public String registerUser(@Valid @ModelAttribute UserRegisterFormData userFormData, BindingResult rBindingResult, HttpSession session) {
+    public String registerUser(@ModelAttribute UserRegisterFormData userFormData, BindingResult rBindingResult, HttpSession session) {
         log.info("/register-user hit from form");
 
+        if (rBindingResult.hasErrors()) {
+            log.warn("Validation Errors, User redirected to signup");
+            return "signup";
+        }
+
         User user = userService.saveUser(MiscUtil.getUserFromFormData(userFormData));
+        signUpService.updateSession(session);
 
         return "redirect:/signup";
     }

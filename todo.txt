@@ -5,4 +5,5 @@
 5. Check possibility of sharding/partitioning
 6. Use Design Patters
 7. Hash the password before saving in db
-8. Implement signin with oauth2
+8. Implement sign-in with oauth2
+9. Check why validation is not working properly / add custom validation on form data.
